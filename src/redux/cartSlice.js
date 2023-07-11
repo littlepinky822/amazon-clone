@@ -21,7 +21,14 @@ export const cartSlice = createSlice({
             state.productsNumber = state.productsNumber + parseInt(action.payload.quantity);
         },
         removeFromCart: (state, action) => {
-
+            // Find the product removing from the array
+            const productToRemove = state.products.find((product) => product.id === action.payload); // payload = id
+            // Remove the quantity from the product number
+            state.productsNumber = state.productsNumber - productToRemove.quantity;
+            // Fins index of the product receiving
+            const index = state.products.findIndex((product) => product.id === action.payload);
+            // Remove form the array
+            state.products.splice(index, 1);
         }
     }
 });
