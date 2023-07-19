@@ -13,6 +13,7 @@ const Search = () => {
 
   const onHandleSubmit = (e) => { 
     e.preventDefault();
+    
     navigate({
       pathname: "search",
       search: `${

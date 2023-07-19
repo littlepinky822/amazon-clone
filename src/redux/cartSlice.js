@@ -25,13 +25,29 @@ export const cartSlice = createSlice({
             const productToRemove = state.products.find((product) => product.id === action.payload); // payload = id
             // Remove the quantity from the product number
             state.productsNumber = state.productsNumber - productToRemove.quantity;
-            // Fins index of the product receiving
+            // Find index of the product receiving
             const index = state.products.findIndex((product) => product.id === action.payload);
             // Remove form the array
             state.products.splice(index, 1);
+        },
+        decreaseQuantity: (state, action) => {
+            const productToDecrease = state.products.find((product) => product.id === action.payload);
+            if (productToDecrease.quantity === 1) {
+                // Remove item from cart
+                const index = state.products.findIndex((product) => product.id === action.payload);
+                state.products.splice(index, 1);
+            } else {
+                productToDecrease.quantity -= 1;
+                state.productsNumber -= 1;
+            }
+        },
+        increaseQuantity: (state, action) => {
+            const productToIncrease = state.products.find((product) => product.id === action.payload);
+            productToIncrease.quantity += 1;
+            state.productsNumber += 1;
         }
     }
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseQuantity, increaseQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
